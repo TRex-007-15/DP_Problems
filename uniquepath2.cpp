@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+//RECURSIVE SOLUTION
+// int help(int i,int j,vector<vector<int>> &obstacleGrid)
+// {
+//     if(i==0 && j==0)
+//     {
+//         if(obstacleGrid[i][j]==0)
+//             return 1;
+//         return 0;
+//     }
+//     if(i==0 && j!=0)
+//     {
+//         if(obstacleGrid[i][j]==0)
+//             return help(i,j-1,obstacleGrid);
+//         return 0;
+//     }
+//     if(i!=0 && j==0)
+//     {
+//         if(obstacleGrid[i][j]==0)
+//             return help(i-1,j,obstacleGrid);
+//         return 0;
+//     }
+//     if(obstacleGrid[i][j]==0)
+//         return help(i-1,j,obstacleGrid)+help(i,j-1,obstacleGrid);
+//     return 0;
+// }
+// int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+//     int m = obstacleGrid.size();
+//     int n = obstacleGrid[0].size();
+//     int ans  = help(m-1,n-1,obstacleGrid);
+//     return ans;
+// }
+// MEMOIZATION
+int help(int i,int j,vector<vector<int>> &obstacleGrid)
+{
+    if(i==0 && j==0)
+    {
+        if(obstacleGrid[i][j]==0)
+            return 1;
+        return 0;
+    }
+    if(i==0 && j!=0)
+    {
+        if(obstacleGrid[i][j]==0)
+            return help(i,j-1,obstacleGrid);
+        return 0;
+    }
+    if(i!=0 && j==0)
+    {
+        if(obstacleGrid[i][j]==0)
+            return help(i-1,j,obstacleGrid);
+        return 0;
+    }
+    if(obstacleGrid[i][j]==0)
+        return help(i-1,j,obstacleGrid)+help(i,j-1,obstacleGrid);
+    return 0;
+}
+int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+    int m = obstacleGrid.size();
+    int n = obstacleGrid[0].size();
+    vector <vector<int>> dp(m,vector<int>(n,-1));
+    int ans  = help(m-1,n-1,obstacleGrid);
+    return ans;
+}
+int main()
+{
+    vector<vector<int>> obstacleGrid = {{0,0,0},{0,1,0},{0,0,0}};
+    int fa = uniquePathsWithObstacles(obstacleGrid);
+    cout<<fa<<endl;
+}
